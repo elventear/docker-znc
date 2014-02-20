@@ -18,8 +18,9 @@ WORKDIR /home/znc
 # http://colloquy.info/project/wiki/PushNotifications
 # https://github.com/shykes/docker-znc/blob/master/zncrun
 
-RUN mkdir -p .znc/modules && mkdir -p .znc/configs && \
-    curl -L http://github.com/wired/colloquypush/raw/master/znc/colloquy.cpp > colloquy.cpp && \
+ADD files/znc /home/znc
+
+RUN curl -L http://github.com/wired/colloquypush/raw/master/znc/colloquy.cpp > colloquy.cpp && \
     znc-buildmod colloquy.cpp && \
     mv -v colloquy.so /home/znc/.znc/modules && \
     rm colloquy.cpp && \
@@ -35,13 +36,10 @@ RUN mkdir -p .znc/modules && mkdir -p .znc/configs && \
         allow hide \
     } \
 }' >> /etc/oidentd.conf && \
-    touch /home/znc/.oidentd.conf && chmod 644 /home/znc/.oidentd.conf && chmod 711 /home/znc
+    chmod 644 /home/znc/.oidentd.conf && chmod 711 /home/znc && chown -R znc:znc /home/znc
 
 ADD files/supervisord/oident.conf /etc/supervisor/conf.d/oident.conf
 ADD files/supervisord/znc.conf /etc/supervisor/conf.d/znc.conf
-ADD files/znc/znc.conf /home/znc/.znc/configs/znc.conf
-
-RUN chown -R znc:znc /home/znc
 
 VOLUME ["/home/znc/.znc"]
 EXPOSE 6667
