@@ -2,6 +2,7 @@ FROM elventear/supervisord:latest
 
 MAINTAINER Pepe Barbe dev@antropoide.net
 
+
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y software-properties-common
@@ -33,7 +34,8 @@ RUN mkdir -p .znc/modules && mkdir -p .znc/configs && \
         allow numeric \
         allow hide \
     } \
-}' >> /etc/oidentd.conf
+}' >> /etc/oidentd.conf && \
+    touch /home/znc/.oidentd.conf && chmod 644 /home/znc/.oidentd.conf && chmod 711 /home/znc
 
 ADD files/supervisord/oident.conf /etc/supervisor/conf.d/oident.conf
 ADD files/supervisord/znc.conf /etc/supervisor/conf.d/znc.conf
@@ -41,6 +43,7 @@ ADD files/znc/znc.conf /home/znc/.znc/configs/znc.conf
 
 RUN chown -R znc:znc /home/znc
 
+VOLUME ["/home/znc/.znc"]
 EXPOSE 6667
 EXPOSE 113
 
