@@ -22,7 +22,7 @@ if [[ ! -f $ZNC_DATA/znc.pem ]]; then
     echo Created new SSL certificate
 fi
 
-if [ ! -f $ZNC_TEMPLATE ]; then
+if [ ! -f $ZNC_CONFIG ]; then
     if [ -z $ZNC_ADMIN_PASS ]; then
         ZNC_ADMIN_PASS=$(genpass 20)
         echo Auto generated Admin password $ZNC_ADMIN_PASS
@@ -32,7 +32,6 @@ if [ ! -f $ZNC_TEMPLATE ]; then
     ZNC_SALT="$(dd if=/dev/urandom bs=16c count=1 | md5sum | awk '{print $1}')"
     ZNC_HASH="$(echo -n ${ZNC_PASS}${ZNC_SALT} | sha256sum | awk '{print $1}')"
     sed -e "s/@hash@/$ZNC_HASH/g" -e "s/@salt@/$ZNC_SALT/g" $ZNC_TEMPLATE > $ZNC_CONFIG
-    cat $ZNC_CONFIG
 fi 
 
 exec $ZNC -f -d $ZNC_DATA
