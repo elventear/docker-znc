@@ -18,13 +18,12 @@ WORKDIR /home/znc
 # http://colloquy.info/project/wiki/PushNotifications
 # https://github.com/shykes/docker-znc/blob/master/zncrun
 
-ADD files/znc /home/znc
+ADD files/znc_home /home/znc
 
 RUN curl -L http://github.com/wired/colloquypush/raw/master/znc/colloquy.cpp > colloquy.cpp && \
     znc-buildmod colloquy.cpp && \
     mv -v colloquy.so /home/znc/.znc/modules && \
     rm colloquy.cpp && \
-    znc -p -d /home/znc/.znc && \
     echo 'user "znc" { \
     default { \
         allow spoof \
