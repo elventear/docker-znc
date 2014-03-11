@@ -29,12 +29,7 @@ Version = 1.2
 </Listener>
 
 <User admin>
-	<Pass password>
-		Hash = 4ba21cfe9b801a4067cf8bfb0ae449afaa597ee4d21b721c53bb7c96f7aa8651
-		Method = SHA256
-		Salt = f9oc+oXKD9A;4g00as6u
-	</Pass>
-	
+        Pass = sha256#@hash@#@salt@#	
         Admin = true
 	AltNick = admin
 	AppendTimestamp = false
