@@ -24,7 +24,7 @@ RUN curl -L https://raw.github.com/wired/colloquypush/master/znc/colloquy.cpp > 
         znc-buildmod colloquy.cpp && \
         mv -v colloquy.so /home/znc/.znc/modules && \
         rm colloquy.cpp && \
-    curl -L https://raw.github.com/KiNgMaR/znc/msvc/win32/extra_modules/identserver.cpp > identserver.cpp && \
+    curl -L https://raw.github.com/KiNgMaR/znc/msvc/win32/extra_modules/identserver.cpp | sed -e 's/m_serverPort = 113;/m_serverPort = 11300;/g' > identserver.cpp && \
         export export CXXFLAGS='-std=c++11' && \
         znc-buildmod identserver.cpp && \
         mv -v identserver.so /home/znc/.znc/modules && \
