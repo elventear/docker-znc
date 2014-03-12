@@ -23,6 +23,6 @@ if [ ! -f $ZNC_CONFIG ]; then
     sed -e "s/@hash@/$ZNC_HASH/g" -e "s/@salt@/$ZNC_SALT/g" $ZNC_TEMPLATE > $ZNC_CONFIG
 fi 
 
-unset $ZNC_ADMIN_PASS
+unset ZNC_ADMIN_PASS
 
 exec $ZNC -f -d $ZNC_DATA
