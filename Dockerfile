@@ -34,7 +34,7 @@ RUN curl -L https://raw.github.com/wired/colloquypush/master/znc/colloquy.cpp > 
 VOLUME ["/home/znc/.znc"]
 
 EXPOSE 6667
-EXPOSE 113
+EXPOSE 11300
 
 USER znc
 
