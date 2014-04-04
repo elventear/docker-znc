@@ -12,7 +12,6 @@ AnonIPLimit = 10
 ConnectDelay = 5
 LoadModule = partyline
 LoadModule = webadmin
-LoadModule = identserver
 MaxBufferSize = 1000
 ProtectWebSessions = true
 SSLCertFile = /home/znc/.znc/znc.pem
