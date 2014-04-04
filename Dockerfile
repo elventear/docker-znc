@@ -2,9 +2,7 @@ FROM ubuntu:13.10
 
 MAINTAINER Pepe Barbe dev@antropoide.net
 
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y software-properties-common
+RUN apt-get update && apt-get install -y software-properties-common
 
 RUN add-apt-repository -y ppa:teward/znc && \
     apt-get update && \
@@ -24,17 +22,11 @@ RUN curl -L https://raw.github.com/wired/colloquypush/master/znc/colloquy.cpp > 
         znc-buildmod colloquy.cpp && \
         mv -v colloquy.so /home/znc/.znc/modules && \
         rm colloquy.cpp && \
-    curl -L https://raw.github.com/KiNgMaR/znc/msvc/win32/extra_modules/identserver.cpp | sed -e 's/m_serverPort = 113;/m_serverPort = 11300;/g' > identserver.cpp && \
-        export export CXXFLAGS='-std=c++11' && \
-        znc-buildmod identserver.cpp && \
-        mv -v identserver.so /home/znc/.znc/modules && \
-        rm identserver.cpp && \
     chmod 711 /home/znc && chown -R znc:znc /home/znc
 
 VOLUME ["/home/znc/.znc"]
 
 EXPOSE 6667
-EXPOSE 11300
 
 USER znc
 
