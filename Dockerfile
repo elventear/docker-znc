@@ -1,4 +1,4 @@
-FROM ubuntu:13.10
+FROM ubuntu:latest
 
 MAINTAINER Pepe Barbe dev@antropoide.net
 
